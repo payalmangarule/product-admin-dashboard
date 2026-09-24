@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
@@ -12,7 +12,7 @@ import {
   deleteProduct,
 } from "../../services/productService";
 
-export default function ProductsPage() {
+function ProductsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -1080,5 +1080,13 @@ export default function ProductsPage() {
       </div>
 
     </main>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={null}>
+      <ProductsPageContent />
+    </Suspense>
   );
 }
